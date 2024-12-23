@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kevin's Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Global 樣式 */
+        body {
+            background-color: #3E5879;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header 樣式 */
+        header {
+            background-color: #213555;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        /* Section 樣式 */
+        main article {
+            margin: 20px auto;
+            max-width: 850px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        main article header {
+            background-color: #D8C4B6;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative; /* 新增 */
+            z-index: 1; /* 新增 */
+        }
+
+        main article section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Section1 樣式 */
+        #Section1 .profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        #Section1 .profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+
+        #Section1 aside {
+            margin: 20px auto;
+            max-width: 600px;
+            display: inline-block;
+            vertical-align: top;
+            width: 35%;
+        }
+
+        #Section1 blockquote {
+            color: wheat;
+            background-color: purple;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            width: 100%; /* 設置為全寬度，讓文字不折行 */
+            box-sizing: border-box; /* 確保 padding 不影響寬度 */
+        }
+
+        #Section1 section {
+            display: inline-block;
+            text-align: left;
+            width: 60%;
+        }
+
+        #Section1 section p {
+            margin-left: 10%;
+        }
+
+        /* Section2 和 Section3 表格 */
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 90%;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Section4 音訊與影片樣式 */
+        #Section4 .media {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #Section4 figure {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #Section4 figcaption {
+            text-align: left;
+            color: #333;
+        }
+
+        /* Section5 視訊樣式 */
+        #Section5 .media {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #Section5 figure {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #Section5 video,
+        #Section5 iframe {
+            width: 400px;
+            height: 300px;
+        }
+
+        #Section5 figcaption {
+            text-align: left;
+            color: #333;
+        }
+
+        /* Section6 圖片作品集樣式 */
+        #Section6 .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #Section6 figure {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #Section6 img {
+            width: 400px;
+            height: auto;
+        }
+
+        #Section6 figcaption {
+            text-align: left;
+            color: #333;
+        }
+
+        #Section6 header {
+            background-color: #D8C4B6;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* Section7 樣式 */
+        #Section7 figure {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* 將內容垂直置中 */
+        }
+
+        #Section7 details {
+            text-align: center;
+            max-width: 90%; /* 限制細節部分的寬度 */
+            margin: 0 auto; /* 讓內容水平置中 */
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        #Section7 iframe {
+            margin: 20px auto;
+            display: block; /* 確保 iframe 為區塊元素 */
+        }
+
+        #Section7 figcaption {
+            text-align: center; /* 置中文字樣 */
+            justify-content: center;
+            margin: 10px auto; /* 讓 figcaption 的間距適中 */
+            font-style: italic; /* 添加斜體讓文字更突出 */
+        }
+        
+        #Section7 header {
+            background-color: #D8C4B6;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* Footer 樣式 */
+        footer {
+            background-color: #213555;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+        }
+        @media (max-width: 768px) {
+            /* Header 樣式 */
+            header {
+                padding: 10px 5px;
+            }
+            nav a {
+                display: block;
+                margin: 5px 0;
+                text-align: center;
+            }
+
+            /* Section1 樣式 */
+            #Section1 .profile {
+                flex-direction: column;
+                gap: 10px;
+            }
+            #Section1 .profile img {
+                width: 150px;
+                height: 150px;
+            }
+            #Section1 aside
+            {
+                margin: 0 auto;
+                width: 90%;
+                text-align: center;
+            }
+            #Section1 section {
+                display: flex; /* 使用彈性佈局 */
+                flex-direction: column; /* 內容垂直排列 */
+                align-items: center; /* 水平置中 */
+                justify-content: center; /* 垂直置中 */
+                text-align: center; /* 文字置中 */
+                margin: 0 auto; /* 確保外邊距為自適應 */
+            }
+
+            /* 表格 */
+            table th, table td {
+                font-size: 14px;
+            }
+
+            #Section4 figure, #Section5 figure, #Section6 figure {
+                flex-direction: column;
+            }
+            #Section4 figcaption, #Section5 figcaption, #Section6 figcaption {
+                order: 1; /* 確保 figcaption 出現在圖片或影片後 */
+                text-align: center;
+            }
+
+            /* Section7 */
+            #Section7 figure {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            #Section7 iframe, #Section7 embed {
+                width: 98%; /* 小螢幕時調整為更小的寬度 */
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+            /* Header 樣式 */
+            header {
+                padding: 15px;
+            }
+            nav a {
+                margin: 0 10px;
+            }
+
+            /* Section1 樣式 */
+            #Section1 .profile {
+                gap: 15px;
+            }
+            #Section1 .profile img {
+                width: 100px;
+                height: 100px;
+            }
+            #Section1 aside,
+            #Section1 section {
+                width: 45%;
+            }
+
+            /* 表格 */
+            table th, table td {
+                font-size: 16px;
+            }
+
+            /* Section4, Section5 媒體 */
+            #Section4 figure, #Section5 figure, #Section6 figure {
+                flex-direction: column;
+            }
+            #Section4 figcaption, #Section5 figcaption,      {
+                order: 1; /* 確保 figcaption 出現在圖片或影片後 */
+                text-align: center;
+            }
+        }
+
+        /* 響應式設計 */
+        @media (min-width: 1024px) {
+            /* Header 樣式 */
+            header {
+                padding: 20px 0;
+            }
+
+            /* Section1 樣式 */
+            #Section1 .profile {
+                gap: 20px;
+            }
+            #Section1 .profile img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .menu-button,
+            .menu-dropdown {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            /* 導覽列轉為按鈕 */
+            nav {
+                display: none; /* 隱藏原始的 nav */
+            }
+
+            .menu-button {
+                display: block;
+                background-color: #213555;
+                color: white;
+                padding: 10px;
+                border: none;
+                text-align: center;
+                cursor: pointer;
+                width: 100%;
+            }
+
+            .menu-dropdown {
+                display: none;
+                background-color: #3E5879;
+                position: absolute;
+                top: 100px;
+                left: 0;
+                width: 100%;
+                z-index: 1000;
+            }
+
+            .menu-dropdown a {
+                display: block;
+                padding: 10px;
+                text-decoration: none;
+                color: white;
+                text-align: center;
+            }
+
+            .menu-dropdown a:hover {
+                background-color: #213555;
+            }
+
+            .menu-button.active + .menu-dropdown {
+                top: 100%; /* 確保選單顯示在按鈕正下方 */
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Kevin的Blog (111216010)</h1>
+        <!-- 新增的按鈕 -->
+        <button class="menu-button">☰ 選單</button>
+        <div class="menu-dropdown">
+            <a href="#Section1">關於我</a>
+            <a href="#Section2">工作經驗</a>
+            <a href="#Section3">工作技能</a>
+            <a href="#Section4">音樂作品</a>
+            <a href="#Section5">視訊作品</a>
+            <a href="#Section6">圖片作品</a>
+            <a href="#Section7">更多資訊</a>
+        </div>
+        <nav>
+            <a href="#Section1">關於我</a>
+            <a href="#Section2">工作經驗</a>
+            <a href="#Section3">工作技能</a>
+            <a href="#Section4">音樂作品</a>
+            <a href="#Section5">視訊作品</a>
+            <a href="#Section6">圖片作品</a>
+            <a href="#Section7">更多資訊</a>
+        </nav>
+    </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuButton = document.querySelector('.menu-button');
+            const menuDropdown = document.querySelector('.menu-dropdown');
+            const menuLinks = document.querySelectorAll('.menu-dropdown a');
+    
+            // 點擊按鈕切換選單顯示
+            menuButton.addEventListener('click', function () {
+                menuButton.classList.toggle('active');
+            });
+    
+            // 點擊選單項目時關閉選單
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    menuButton.classList.remove('active');
+                });
+            });
+        });
+    </script>
+
+    <main>
+        <article id="Section1">
+            <header>
+                <h2>關於我</h2>
+            </header>
+            <section>
+                <div class="profile">
+                    <img src="assets/images/fotor-20241118132920.png" alt="Kevin picture">
+                    <div>
+                        <h1>Kevin Huang</h1>
+                        <em><strong><a href="https://www.instagram.com/guobei_zih_yan/">國北資訊研究社</a></strong>第19屆社長，每天都很累的一個人</em>
+                    </div>
+                </div>
+                <p>一位學生，熱衷於<mark>程式設計、電玩、歷史、政治等領域學問</mark>，<br>目標成為一位知識分子</p>
+                <p>Enjoy life! After all, we've come so far now.</p>
+            </section>
+            <aside>
+                <blockquote>
+                    <h3>Three words that I anticipate myself to be</h3>
+                    <p>Decisive, Resplendent, Open-minded</p>
+                </blockquote>
+            </aside>
+        </article>
+
+        <article id="Section2">
+            <header>
+                <h2>工作經歷</h2>
+            </header>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dates</th>
+                            <th>Work</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2023-2024</td>
+                            <td>國中英文家教</td>
+                        </tr>
+                        <tr>
+                            <td>2023-2024</td>
+                            <td>高中補習班英文助教</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </article>
+
+        <article id="Section3">
+            <header>
+                <h2>工作技能</h2>
+            </header>
+            <section>
+                <table>
+                    <tr>
+                        <td>Flutter</td>
+                        <td>✨✨✨✨✨</td>
+                    </tr>
+                    <tr>
+                        <td>Python</td>
+                        <td>✨✨✨✨</td>
+                    </tr>
+                    <tr>
+                        <td>C++</td>
+                        <td>✨✨✨</td>
+                    </tr>
+                    <tr>
+                        <td>英文能力</td>
+                        <td>✨✨✨✨✨</td>
+                    </tr>
+                </table>
+            </section>
+        </article>
+
+        <article id="Section4">
+            <header>
+                <h2>音訊介紹</h2>
+            </header>
+            <div class="media">
+                <figure>
+                    <video controls>
+                        <source src="assets/audios/Heart of Vinland.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>Suno生成之音樂影片</figcaption>
+                </figure>
+
+                <figure>
+                    <audio controls>
+                        <source src="assets/audios/multimedia.mp3" type="audio/mpeg">
+                    </audio>
+                    <figcaption>AIVA之音樂生成作品</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <article id="Section5">
+            <header>
+                <h2>視訊介紹</h2>
+            </header>
+            <div class="media">
+                <figure>
+                    <video controls>
+                        <source src="assets/videos/multimedia.mp4" type="video/mp4">
+                    </video>
+                    <figcaption>運用Adobe Firefly生成圖片並用Pika生成影像</figcaption>
+                </figure>
+
+                <figure>
+                    <iframe src="https://www.youtube.com/embed/EqdZYpO6hpA?si=muZV7ZRQ3ONup3Go" frameborder="0" allowfullscreen></iframe>
+                    <figcaption>多媒體概論期中專題Vlog影片</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <article id="Section6">
+            <header>
+                <h2>圖片作品集</h2>
+            </header>
+            <div class="gallery">
+                <figure>
+                    <img src="assets/images/S__4071430_0.jpg" alt="山間風景">
+                    <figcaption>台中秋紅谷夜景</figcaption>
+                </figure>
+                <figure>
+                    <img src="assets/images/S__4071432_0.jpg" alt="小鎮景色">
+                    <figcaption>台中咖波咖啡廳</figcaption>
+                </figure>
+            </div>
+        </article>
+
+        <article id="Section7">
+            <header>
+                <h2>更多資訊</h2>
+            </header>
+            <figure>
+                <figcaption>
+                    <h3>最近關注 </h3>
+                </figcaption>
+                <embed src="assets/pdf/EvenUp.pdf" width="500" height="300">
+            </figure>
+
+            <br>
+
+            <figure>
+                <details style="color: rgb(74, 52, 9);background-color: rgb(230, 165, 230);">
+                    <summary>奉行座右銘</summary>
+                    <i>
+                        <p>See you at the Top because the bottom is too crowded, <br>but we never look down on anybody unless we're willing to help them up</p>
+                    </i>
+                </details>
+            </figure>
+
+            <figure>
+                <figcaption>
+                    <h3>My university </h3>
+                </figcaption>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.2784024338266!2d121.54206247541927!3d25.02462437782254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a908a8232611%3A0xeebfb2d71a5025c7!2z5ZyL56uL6Ie65YyX5pWZ6IKy5aSn5a24!5e0!3m2!1szh-TW!2stw!4v1731827435609!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </figure>
+        </article>
+    </main>
+
+    <footer>
+        <p>聯絡我：kv.huang931022@gmail.com</p>
+        <time datetime="2024-12-23">最後更新時間：2024年12月23日</time>
+    </footer>
+</body>
+
+</html>
